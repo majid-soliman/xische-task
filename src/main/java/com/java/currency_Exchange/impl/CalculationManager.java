@@ -35,16 +35,20 @@ public class CalculationManager {
 		calendar.add(Calendar.YEAR, -1);
 	    double result = 0;
 		
-		if(u.getCreatedOn().before(calendar.getTime())) {
-	    	result = oldUserDiscount.calculate(amount);
-	    }
-		
-		if(u.getType().equals("employee")) {
+		if(u.getType().equals("cunsomer")){
+			if(u.getCreatedOn().before(calendar.getTime())) {
+		    	result = oldUserDiscount.calculate(amount);
+		    }
+		}else if(u.getType().equals("employee")) {
 			result = employeeDiscount.calculate(amount);
 		}
-		
-		if(u.getType().equals("affiliate")) {
+		else if(u.getType().equals("affiliate")) {
 			result = fifiliateDiscount.calculate(amount);
+		} else {
+			result = amount;
+		}
+		if(amount>=100) {
+			result = result - 5;
 		}
 		
 	    return result; 
