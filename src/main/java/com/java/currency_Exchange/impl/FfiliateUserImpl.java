@@ -1,7 +1,10 @@
 package com.java.currency_Exchange.impl;
 
+import org.springframework.stereotype.Component;
+
 import com.java.currency_Exchange.interfaces.Discounts;
 
+@Component("fifiliate")
 public class FfiliateUserImpl implements Discounts{
 
 	@Override

@@ -25,8 +25,9 @@ public class UsersEnt {
     private double discount;
     private String name;
     private String type;
-    @Column(name = "created-on")
+    @Column(name = "created_on")
     private Date createdOn;
+  
     
     
 }
