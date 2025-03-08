@@ -10,6 +10,8 @@ import com.java.currency_Exchange.interfaces.InvoiceHeaderRepo;
 import jakarta.transaction.Transactional;
 
 import com.java.currency_Exchange.Ent.*;
+import com.java.currency_Exchange.exceptions.InvoiceNotfoundException;
+
 import java.util.Map;
 
 @Component
@@ -27,9 +29,9 @@ public class InvoicesDAO {
 	return headerRepo.save(header);
 	}
 	
-	@Cacheable(value="InvoiceHeaderEnt", key="#invoiceId")
+	//@Cacheable(value="InvoiceHeaderEnt", key="#invoiceId")
 	public InvoiceHeaderEnt getInvoiceDetails(int invoiceId) {
-		return headerRepo.findById(invoiceId).get();
+		return headerRepo.findById(invoiceId).orElseThrow(()->  new InvoiceNotfoundException("Invoice Not found!"));
 	}
 	
 }

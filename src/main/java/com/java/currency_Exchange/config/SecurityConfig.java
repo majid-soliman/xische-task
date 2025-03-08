@@ -21,7 +21,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 			.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/exchangeApi/getCurrency","/exchangeApi/getInvoice").permitAll()
+				.requestMatchers("/exchangeApi/createInvoice","/exchangeApi/getInvoice").permitAll()
 				.anyRequest().authenticated()
 			)
 			.formLogin((form) -> form

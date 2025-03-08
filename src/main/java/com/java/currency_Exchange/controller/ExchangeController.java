@@ -27,7 +27,7 @@ public class ExchangeController {
 	@Autowired
 	InvoiceService invService;
 	
-	@PostMapping("/getCurrency")
+	@PostMapping("/createInvoice")
 	public Double getCurrency(@RequestBody Map<String,Object> reqMap,
 	@RequestHeader("API-KEY") String header) throws JsonMappingException, JsonProcessingException {
 	reqMap.put("api-key", header);	
