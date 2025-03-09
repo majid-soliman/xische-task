@@ -28,21 +28,14 @@ public class ExchangeController {
 	InvoiceService invService;
 	
 	@PostMapping("/createInvoice")
-	public Double getCurrency(@RequestBody Map<String,Object> reqMap,
+	public Map<String, Object> creteInvoice(@RequestBody Map<String,Object> reqMap,
 	@RequestHeader("API-KEY") String header) throws JsonMappingException, JsonProcessingException {
 	reqMap.put("api-key", header);	
 	return service.calculate(reqMap);
 	}
 	
-	//for testing security Authentication 
-	@GetMapping("/getName")
-	public String getName() {
-		return "Majid Soliman";
-	}
-	
-	
 	@PostMapping("/getInvoice")
-	public InvoiceHeaderEnt getInvoice(@RequestBody Map<String, Object> map) {
+	public Map<String, Object> getInvoice(@RequestBody Map<String, Object> map) {
 		return invService.getInvoiceDetails(map);
 	}
 	

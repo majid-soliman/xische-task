@@ -37,7 +37,7 @@ public class InvoiceHeaderEnt implements Serializable {
 	private String createdOn;
 	
 	@Column(name = "invoice_id")
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name ="invoice_id",  referencedColumnName = "id")
 	List<InvoiceDetailsEnt> details = new ArrayList<InvoiceDetailsEnt>();
 

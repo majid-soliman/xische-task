@@ -12,6 +12,7 @@ import jakarta.transaction.Transactional;
 import com.java.currency_Exchange.Ent.*;
 import com.java.currency_Exchange.exceptions.InvoiceNotfoundException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -24,14 +25,34 @@ public class InvoicesDAO {
 	InvoiceDetailsRepo DetailsrRepo;
 	
 	@Transactional
-	public InvoiceHeaderEnt createInvoice(InvoiceHeaderEnt header, InvoiceDetailsEnt details) {
+	public Map<String, Object> createInvoice(InvoiceHeaderEnt header, InvoiceDetailsEnt details) {
 		header.getDetails().add(details);
-	return headerRepo.save(header);
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		try {
+			InvoiceHeaderEnt invoiceDetails = headerRepo.save(header);
+			resMap.put("invoiceDetails", invoiceDetails);
+        }catch(Exception exception){
+        	exception.printStackTrace();
+        	resMap.put("Error", exception.getMessage());
+        }
+		
+		return resMap;
 	}
 	
 	//@Cacheable(value="InvoiceHeaderEnt", key="#invoiceId")
-	public InvoiceHeaderEnt getInvoiceDetails(int invoiceId) {
-		return headerRepo.findById(invoiceId).orElseThrow(()->  new InvoiceNotfoundException("Invoice Not found!"));
+	public Map<String, Object> getInvoiceDetails(int invoiceId) {
+	Map<String, Object> resMap = new HashMap<String, Object>();
+	InvoiceHeaderEnt header = null;
+	try {
+		header = headerRepo.findById(invoiceId).get();
+		resMap.put("invoiceDetails", header);
+	
+	}catch(Exception exception) {
+	exception.printStackTrace();
+	resMap.put("Error", exception.getMessage());
+	}
+    System.out.println(header.getUserId());	    
+	return resMap;
 	}
 	
 }

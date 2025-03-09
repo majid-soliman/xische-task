@@ -18,7 +18,7 @@ public class InvoiceService {
 	@Autowired
 	InvoicesDAO dao;
 	
-	public void createInvoice(JSONObject json) throws JsonMappingException, JsonProcessingException {
+	public Map<String, Object> createInvoice(JSONObject json) throws JsonMappingException, JsonProcessingException {
 		JSONObject  headerJSON = (JSONObject) json.get("headerMap");
 		JSONObject  detailsJSON = (JSONObject) json.get("detailsMap");
 		ObjectMapper mapper = new ObjectMapper();
@@ -26,13 +26,10 @@ public class InvoiceService {
 		InvoiceHeaderEnt header = mapper.readValue(headerJSON.toString(), InvoiceHeaderEnt.class);
 		InvoiceDetailsEnt details = mapper.readValue(detailsJSON.toString(), InvoiceDetailsEnt.class);
 	    
-		InvoiceHeaderEnt mainHeader =  dao.createInvoice(header, details);
-		
-		System.out.println("User id: "+mainHeader.getDetails().get(0).getAmount());
-		
-   }
+	  return  dao.createInvoice(header, details);
+	}
 	
-	public InvoiceHeaderEnt getInvoiceDetails(Map<String, Object> reqMap) {
+	public Map<String, Object> getInvoiceDetails(Map<String, Object> reqMap) {
 		return dao.getInvoiceDetails((Integer)reqMap.get("invoiceId"));
 	}
 	

@@ -23,7 +23,7 @@ public class ExchangeService {
 	@Autowired
 	InvoiceService invoiceService;
 	
-	public double calculate(Map<String,Object> reqMap) throws JsonMappingException, JsonProcessingException {
+	public Map<String, Object> calculate(Map<String,Object> reqMap) throws JsonMappingException, JsonProcessingException {
      double result = Double.parseDouble(reqMap.get("amount").toString()) 
      * getCurrencyPrice(reqMap.get("currency").toString(),reqMap.get("toCurrency").toString(),
      reqMap.get("api-key").toString());
@@ -42,10 +42,8 @@ public class ExchangeService {
      json.put("headerMap", headerMap);
      json.put("detailsMap", detailsMap);
      
-     invoiceService.createInvoice(json);
-     
-     return result; 
-	}
+     return invoiceService.createInvoice(json);
+     }
 	
 	public double getCurrencyPrice(String currency,String toCurrency,String apiKey) {
 	   String intResult = intService.getName(apiKey,toCurrency).block();
