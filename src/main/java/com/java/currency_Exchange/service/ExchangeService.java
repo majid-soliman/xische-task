@@ -52,8 +52,5 @@ public class ExchangeService {
 		 return price.getDouble(currency);
 	}
 	
-	public void createInvoice() {
-		
-	}
 	
 }
